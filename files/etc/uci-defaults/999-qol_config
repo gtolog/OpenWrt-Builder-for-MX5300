@@ -1,0 +1,46 @@
+uci -q batch << EOI
+# Set memory profile to auto
+set pbuf.opt.memory_profile='auto'
+
+# Wireless default settings for radio0
+set wireless.default_radio0.dtim_period='1'
+set wireless.default_radio0.max_inactivity='86400'
+set wireless.default_radio0.disassoc_low_ack='0'
+set wireless.default_radio0.wnm_sleep_mode='1'
+set wireless.default_radio0.ieee80211k='1'
+set wireless.default_radio0.time_advertisement='2'
+set wireless.default_radio0.bss_transition='1'
+set wireless.default_radio0.proxy_arp='1'
+
+# Wireless default settings for radio1
+set wireless.default_radio1.dtim_period='1'
+set wireless.default_radio1.max_inactivity='86400'
+set wireless.default_radio1.disassoc_low_ack='0'
+set wireless.default_radio1.wnm_sleep_mode='1'
+set wireless.default_radio1.ieee80211k='1'
+set wireless.default_radio1.time_advertisement='2'
+set wireless.default_radio1.bss_transition='1'
+set wireless.default_radio1.proxy_arp='1'
+
+# Wireless default settings for radio2
+set wireless.default_radio2.dtim_period='1'
+set wireless.default_radio2.max_inactivity='86400'
+set wireless.default_radio2.disassoc_low_ack='0'
+set wireless.default_radio2.wnm_sleep_mode='1'
+set wireless.default_radio2.ieee80211k='1'
+set wireless.default_radio2.time_advertisement='2'
+set wireless.default_radio2.bss_transition='1'
+set wireless.default_radio2.proxy_arp='1'
+
+# Firewall settings
+set firewall.@defaults[0].flow_offloading='0'
+
+# Network settings
+set network.globals.packet_steering='0'
+# set network.@device[0].igmp_snooping='1'
+# set network.@device[0].multicast_querier='1'
+
+# ECM settings
+set ecm.@general[0].enable_bridge_filtering='0'
+
+EOI
