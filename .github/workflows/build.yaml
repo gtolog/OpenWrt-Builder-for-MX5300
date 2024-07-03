@@ -84,7 +84,7 @@ jobs:
       - name: Configure firmware image
         run: |
           mv custom_repo/${{ env.CONFIG_FILE }} .config
-          make defconfig -j$(nproc)
+          # make defconfig -j$(nproc)
       - name: Include custom config
         run: |
           mkdir -p ${{ env.CUSTOM_FILES_PATH }}
