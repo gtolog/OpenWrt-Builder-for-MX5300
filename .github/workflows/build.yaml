@@ -71,14 +71,14 @@ jobs:
       #   run: |
       #     sed -i 's|src-git nss_packages https://github.com/qosmio/nss-packages.git;NSS-12.5-K6.x|src-git nss_packages https://github.com/qosmio/nss-packages.git;NSS-12.5-K6.x-NAPI|' feeds.conf.default
       #     cat feeds.conf.default
-
-      - name: Clone msd_lite into OpenWrt package directory
-        run: git clone https://github.com/rozhuk-im/msd_lite package/msd_lite
       
       - name: Checkout current repository
         uses: actions/checkout@v4
         with:
           path: "custom_repo"
+
+      - name: Clone msd_lite into OpenWrt package directory
+        run: git clone https://github.com/rozhuk-im/msd_lite package/msd_lite
 
       - name: Configure msd_lite in .config
         run: echo -e "CONFIG_PACKAGE_msd_lite=y" >> custom_repo/${{ env.CONFIG_FILE }}
