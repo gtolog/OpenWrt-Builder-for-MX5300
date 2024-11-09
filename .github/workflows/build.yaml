@@ -78,7 +78,7 @@ jobs:
           path: "custom_repo"
 
       - name: Clone msd_lite into OpenWrt package directory
-        run: git clone https://github.com/rozhuk-im/msd_lite package/msd_lite
+        run: git clone --recursive https://github.com/rozhuk-im/msd_lite package/msd_lite
 
       - name: Configure msd_lite in .config
         run: echo -e "CONFIG_PACKAGE_msd_lite=y" >> custom_repo/${{ env.CONFIG_FILE }}
