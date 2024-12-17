@@ -76,55 +76,27 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: "custom_repo"
-
-      # - name: Clone msd_lite into OpenWrt package directory
-      #   run: git clone --recursive https://github.com/rozhuk-im/msd_lite package/msd_lite
-
-      # - name: Configure msd_lite in .config
-      #   run: echo -e "CONFIG_PACKAGE_msd_lite=y" >> custom_repo/${{ env.CONFIG_FILE }}
       
       - name: Update and install feeds
         run: |
           ./scripts/feeds update -a
           ./scripts/feeds install -a
       
-      # - name: Apply NSS Status patch
-      #   run: |
-      #     mv custom_repo/patches/${{ env.NSS_STATUS_PATCH }} feeds/luci/${{ env.NSS_STATUS_PATCH }}
-      #     cd feeds/luci
-      #     git apply ${{ env.NSS_STATUS_PATCH }}
-      
       - name: Configure firmware image
         run: |
           mv custom_repo/${{ env.CONFIG_FILE }} .config
           make defconfig -j$(nproc)
       
-      - name: Include some custom configuration files,
+      - name: Include custom files
         run: |
           mkdir -p ${{ env.CUSTOM_FILES_PATH }}
-          mv custom_repo/${{ env.CUSTOM_FILES_PATH }}* ./files/
-      
-      - name: Download package sources
-        run: |
-          make download V=s
+          mv custom_repo/${{ env.CUSTOM_FILES_PATH }}* ${{ env.CUSTOM_FILES_PATH }}
 
-      - name: Build tools
-        run: |
-          make tools/install -j$(nproc) V=s || \
-          make tools/install V=s
+      - name: Download dependencies
+        run: make download V=s -j$(nproc)
 
-      - name: Build toolchain
-        run: |
-          make toolchain/install -j$(nproc) V=s || \
-          make toolchain/install V=s
-
-      - name: Build target images
-        run: |
-          make -j$(nproc) V=s || \
-          make V=s
-      
-      # - name: Build the firmware image
-      #   run: make download world V=sc -j$(nproc)
+      - name: Build the firmware image
+        run: make world V=s -j$(nproc)
       
       - name: Package output
         run: tar -cvf ipq807x-images.tar bin/targets/qualcommax/ipq807x
