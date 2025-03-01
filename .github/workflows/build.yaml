@@ -9,7 +9,7 @@ on:
 env:
   REMOTE_REPOSITORY: qosmio/openwrt-ipq
   # REMOTE_REPOSITORY: AgustinLorenzo/openwrt
-  REMOTE_BRANCH: 24.10-nss
+  REMOTE_BRANCH: main-nss
   # REMOTE_BRANCH: main_nss
   CONFIG_FILE: build.config
   # NSS_STATUS_PATCH: 999-add-nss-load-to-status.patch
