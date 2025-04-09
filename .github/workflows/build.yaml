@@ -163,14 +163,15 @@ jobs:
           git clone --depth=1 --single-branch https://github.com/gSpotx2f/luci-app-cpu-status-mini package/extra-packages/luci-app-cpu-status-mini
           git clone --depth=1 --single-branch https://github.com/sbwml/luci-app-airconnect package/extra-packages/luci-app-airconnect
           git clone --depth=1 --single-branch https://github.com/sbwml/package_kernel_r8152 package/extra-packages/package_kernel_r8152
+          git clone --depth=1 --single-branch https://github.com/gtolog/openwrt-msd_lite package/extra-packages/openwrt-msd_lite
 
           # Clone only msd_lite from immortalwrt without unnecessary files
-          git clone --depth=1 --filter=blob:none --sparse --single-branch --no-checkout https://github.com/immortalwrt/packages.git package/extra-packages/immortalwrt-packages
-          git -C package/extra-packages/immortalwrt-packages sparse-checkout set net/msd_lite
-          git -C package/extra-packages/immortalwrt-packages checkout
+          # git clone --depth=1 --filter=blob:none --sparse --single-branch --no-checkout https://github.com/immortalwrt/packages.git package/extra-packages/immortalwrt-packages
+          # git -C package/extra-packages/immortalwrt-packages sparse-checkout set net/msd_lite
+          # git -C package/extra-packages/immortalwrt-packages checkout
           # Keep msd_lite inside extra-packages to maintain structure
-          mv package/extra-packages/immortalwrt-packages/net/msd_lite package/extra-packages/
-          rm -rf package/extra-packages/immortalwrt-packages
+          # mv package/extra-packages/immortalwrt-packages/net/msd_lite package/extra-packages/
+          # rm -rf package/extra-packages/immortalwrt-packages
           
       - name: Cache ccache
         uses: actions/cache@v3
