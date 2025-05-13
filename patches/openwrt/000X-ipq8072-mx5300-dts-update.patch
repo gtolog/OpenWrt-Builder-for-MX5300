@@ -1,0 +1,110 @@
+diff --git a/target/linux/qualcommax/files/arch/arm64/boot/dts/qcom/ipq8072-mx5300.dts b/target/linux/qualcommax/files/arch/arm64/boot/dts/qcom/ipq8072-mx5300.dts
+index 6e2e95c00a..7db502df60 100644
+--- a/target/linux/qualcommax/files/arch/arm64/boot/dts/qcom/ipq8072-mx5300.dts
++++ b/target/linux/qualcommax/files/arch/arm64/boot/dts/qcom/ipq8072-mx5300.dts
+@@ -79,40 +79,37 @@
+ 		};
+ 	};
+ 
+-	/*
+-	 * QCA4024 is not currently supported, keep for documentation purposes
+-	 *spi_3_pins: spi-3-state {
+-	 *	spi-pins {
+-	 *		pins = "gpio50", "gpio52", "gpio53";
+-	 *		function = "blsp3_spi";
+-	 *		drive-strength = <8>;
+-	 *		bias-disable;
+-	 *	};
+-	 *
+-	 *	cs-pins {
+-	 *		pins = "gpio22";
+-	 *		function = "blsp3_spi2";
+-	 *		drive-strength = <8>;
+-	 *		bias-disable;
+-	 *	};
+-	 *};
+-	 *
+-	 *quartz_pins: quartz-state {
+-	 *	interrupt-pins {
+-	 *		pins = "gpio48";
+-	 *		function = "gpio";
+-	 *		bias-disable;
+-	 *		input;
+-	 *	};
+-	 *
+-	 *	reset-pins {
+-	 *		pins = "gpio21";
+-	 *		function = "gpio";
+-	 *		bias-disable;
+-	 *		output-high;
+-	 *	};
+-	 *};
+-	 */
++	spi_3_pins: spi-3-state {
++		spi-pins {
++			pins = "gpio50", "gpio52", "gpio53";
++			function = "blsp3_spi";
++			drive-strength = <8>;
++			bias-disable;
++		};
++
++		cs-pins {
++			pins = "gpio22";
++			function = "blsp3_spi2";
++			drive-strength = <8>;
++			bias-disable;
++		};
++	};
++
++	quartz_pins: quartz-state {
++		interrupt-pins {
++			pins = "gpio48";
++			function = "gpio";
++			bias-disable;
++			input;
++		};
++
++		reset-pins {
++			pins = "gpio21";
++			function = "gpio";
++			bias-disable;
++			output-high;
++		};
++	};
+ };
+ 
+ &blsp1_uart5 {
+@@ -381,21 +378,18 @@
+ 	};
+ };
+ 
+-/*
+- * QCA4024 is not currently supported, keep for documentation purposes
+- *&blsp1_spi4 {
+- *	status = "okay";
+- *
+- *	pinctrl-0 = <&spi_3_pins &quartz_pins>;
+- *	pinctrl-names = "default";
+- *
+- *	iot@3 {
+- *		compatible = "qca,qca4024";
+- *		reg = <0>;
+- *		spi-max-frequency = <24000000>;
+- *	};
+- *};
+- */
++&blsp1_spi4 {
++	status = "okay";
++
++	pinctrl-0 = <&spi_3_pins &quartz_pins>;
++	pinctrl-names = "default";
++
++	iot@3 {
++		compatible = "qca,qca4024";
++		reg = <0>;
++		spi-max-frequency = <24000000>;
++	};
++};
+ 
+ &mdio {
+ 	status = "okay";
