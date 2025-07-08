@@ -1,5 +1,5 @@
---- a/package/sqm-scripts/platform/openwrt/sqm-hotplug
-+++ b/package/sqm-scripts/platform/openwrt/sqm-hotplug
+--- a/package/sqm-scripts/files/platform/openwrt/sqm-hotplug
++++ b/package/sqm-scripts/files/platform/openwrt/sqm-hotplug
 @@ -32,7 +32,18 @@ restart_sqm() {
    done
  }
