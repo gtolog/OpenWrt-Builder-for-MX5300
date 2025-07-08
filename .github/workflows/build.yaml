@@ -208,6 +208,7 @@ jobs:
         run: |
           ./scripts/feeds update -a
           ./scripts/feeds install -a
+          find . -type f -name "*sqm-hotplug*" -print || echo "sqm-hotplug not found"
       
       - name: Configure firmware image
         run: |
