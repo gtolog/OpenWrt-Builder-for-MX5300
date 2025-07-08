@@ -1,0 +1,19 @@
+--- a/etc/hotplug.d/iface/11-sqm
++++ b/etc/hotplug.d/iface/11-sqm
+@@ -32,7 +32,18 @@ restart_sqm() {
+   done
+ }
+
+-[ "$ACTION" = ifup ] && /etc/init.d/sqm enabled && restart_sqm
++check_wan() {
++  if ubus call network.interface.wan status | \
++    jsonfilter -e '@["ipv4-address"][0]' -e '@["ipv6-address"][0]' | \
++    grep -q '"address"'; then
++    echo restart_sqm
++  else
++    echo sleep 5
++    echo check_wan
++  fi
++}
++
++[ "$ACTION" = ifup ] && /etc/init.d/sqm enabled && check_wan
