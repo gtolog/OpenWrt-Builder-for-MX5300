@@ -14,7 +14,7 @@ env:
   DEVICE: mx5300
   CONFIG_FILE: build.config
   CUSTOM_FILES_PATH: files/
-  RELEASE_PREFIX: openwrt-qualcommax-ipq60xx
+  RELEASE_PREFIX: openwrt-qualcommax-ipq807x
   NSS_PACKAGES_REPOSITORY: qosmio/nss-packages
   NSS_PACKAGES_REPOSITORY_BRANCH: NSS-12.5-K6.x
   
