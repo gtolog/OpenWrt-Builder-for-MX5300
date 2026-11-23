@@ -246,25 +246,29 @@ jobs:
           set -euo pipefail
           MAKEFILE="feeds/packages/net/sing-box/Makefile"
           [ -f "$MAKEFILE" ] || { echo "Makefile not found: $MAKEFILE"; exit 1; }
-
-          # 1. 获取最新正式版版本号（排除 alpha/beta/rc 等预发布版）
-          LATEST_TAG=$(curl -fsSL "https://api.github.com/repos/SagerNet/sing-box/releases/latest" | jq -r '.tag_name')
+          
+          # 1. 带上 GITHUB_TOKEN 请求 GitHub API 获取最新正式版版本号
+          LATEST_TAG=$(curl -fsSL --retry 3 --retry-delay 2 \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/SagerNet/sing-box/releases/latest" | jq -r '.tag_name')
           LATEST_VER="${LATEST_TAG#v}"
           [ -n "$LATEST_VER" ] && [ "$LATEST_VER" != "null" ]
-
+          
           # 2. 下载对应源码压缩包并计算 SHA256
           TMP_TAR="/tmp/sing-box-${LATEST_VER}.tar.gz"
-          curl -fsSL "https://codeload.github.com/SagerNet/sing-box/tar.gz/v${LATEST_VER}" -o "$TMP_TAR"
+          curl -fsSL --retry 3 --retry-delay 2 \
+            "https://codeload.github.com/SagerNet/sing-box/tar.gz/v${LATEST_VER}" -o "$TMP_TAR"
           NEW_HASH=$(sha256sum "$TMP_TAR" | awk '{print $1}')
           rm -f "$TMP_TAR"
-
+          
           # 3. 更新 Makefile 中的 PKG_VERSION 与 PKG_HASH
           sed -i "s/^PKG_VERSION:=.*/PKG_VERSION:=${LATEST_VER}/" "$MAKEFILE"
           sed -i "s/^PKG_HASH:=.*/PKG_HASH:=${NEW_HASH}/" "$MAKEFILE"
-
+          
           # 4. 重新安装 sing-box 包定义
           ./scripts/feeds install -p packages sing-box
-
+          
           echo "Updated sing-box to ${LATEST_VER} (${NEW_HASH})"
 
       - name: Add custom patches
